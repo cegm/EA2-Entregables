@@ -1,1 +1,7 @@
 KND_Cntrl-1: 158999; 160502; 158612
+
+Integrantes:
+- Carlos Eduardo Gil Mezta 158612
+- Mónica Elizabeth Alba González 160502
+- Andrea Marín Alarcón 158999
+
