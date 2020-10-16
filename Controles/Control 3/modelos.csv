@@ -1,0 +1,13 @@
+Temperatura [ºC],${t}_1$,${t}_2$,Cultivo,${k}$,Concentración,${c}$,Modelo
+30,0,0,Básico,0,Baja,0,$y = \beta_0 + \varepsilon$
+30,0,0,Básico,0,Alta,1,$y = \beta_0 + \beta_4 + \varepsilon$
+30,0,0,Ácido,1,Baja,0,$y = \beta_0 + \beta_3 + \varepsilon$
+30,0,0,Ácido,1,Alta,1,$y = \beta_0 + \beta_3 + \beta_4 + \beta_9 + \varepsilon$
+60,1,0,Básico,0,Baja,0,$y = \beta_0 + \beta_1 + \varepsilon$
+60,1,0,Básico,0,Alta,1,$y = \beta_0 + \beta_1 + \beta_4 + \beta_6 + \varepsilon$
+60,1,0,Ácido,1,Baja,0,$y = \beta_0 + \beta_1 + \beta_3 + \beta_5 + \varepsilon$
+60,1,0,Ácido,1,Alta,1,$y = \beta_0 + \beta_1 + \beta_3 + \beta_4 + \beta_5 + \beta_6 + \beta_9 + \varepsilon$
+90,0,1,Básico,0,Baja,0,$y = \beta_0 + \beta_2 + \varepsilon$
+90,0,1,Básico,0,Alta,1,$y = \beta_0 + \beta_2 + \beta_4 + \beta_8 + \varepsilon$
+90,0,1,Ácido,1,Baja,0,$y = \beta_0 + \beta_2 + \beta_3 + \beta_7 + \varepsilon$
+90,0,1,Ácido,1,Alta,1,$y = \beta_0 + \beta_2 + \beta_3 + \beta_4 + \beta_7 + \beta_8 + \beta_9 + \varepsilon$
