@@ -2,7 +2,7 @@
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
-    
+
     \usepackage{iftex}
     \ifPDFTeX
     	\usepackage[T1]{fontenc}
@@ -27,7 +27,8 @@
     \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
     \usepackage{float}
     \floatplacement{figure}{H} % forces figures to be placed at the correct location
-    \usepackage{xcolor} % Allow colors to be defined
+    %\usepackage{xcolor} % Allow colors to be defined
+
     \usepackage{enumerate} % Needed for markdown enumerations to work
     \usepackage{geometry} % Used to adjust the document margins
     \usepackage{amsmath} % Equations
@@ -41,7 +42,7 @@
     \usepackage{eurosym} % defines \euro
     \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
     \usepackage{fancyvrb} % verbatim replacement that allows latex
-    \usepackage{grffile} % extends the file name processing of package graphics 
+    \usepackage{grffile} % extends the file name processing of package graphics
                          % to support a larger range
     \makeatletter % fix for grffile with XeLaTeX
     \def\Gread@@xetex#1{%
@@ -64,12 +65,12 @@
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     \usepackage{mathrsfs}
-    
 
-    
+
+
     % Colors for the hyperref package
     \definecolor{urlcolor}{rgb}{0,.145,.698}
-    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{linkcolor}{rgb}{0,0,0}
     \definecolor{citecolor}{rgb}{.12,.54,.11}
 
     % ANSI colors
@@ -113,7 +114,7 @@
     \newcommand{\RegionMarkerTok}[1]{{#1}}
     \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
     \newcommand{\NormalTok}[1]{{#1}}
-    
+
     % Additional commands for more recent versions of Pandoc
     \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
     \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
@@ -132,8 +133,8 @@
     \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
     \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
     \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
-    
-    
+
+
     % Define a nice break command that doesn't care if a line doesn't already
     % exist.
     \def\br{\hspace*{\fill} \\* }
@@ -149,11 +150,11 @@
     \title{Control 3}
     \date{21 de octubre de 2020}
     \author{KND}
-    
-    
-    
-    
-    
+
+
+
+
+
 % Pygments definitions
 \makeatletter
 \def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
@@ -256,53 +257,53 @@
 \makeatother
 
 
-    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    % For linebreaks inside Verbatim environment from package fancyvrb.
     \makeatletter
-        \newbox\Wrappedcontinuationbox 
-        \newbox\Wrappedvisiblespacebox 
-        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
-        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
-        \newcommand*\Wrappedcontinuationindent {3ex } 
-        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
-        % Take advantage of the already applied Pygments mark-up to insert 
-        % potential linebreaks for TeX processing. 
-        %        {, <, #, %, $, ' and ": go to next line. 
-        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
-        % Use of \textquotesingle for straight quote. 
-        \newcommand*\Wrappedbreaksatspecials {% 
-            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
-            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
-            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
-            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
-            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
-            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
-            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
-            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
-            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
-            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
-            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
-            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
-            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
-            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
-        } 
-        % Some characters . , ; ? ! / are not pygmentized. 
-        % This macro makes them "active" and they will insert potential linebreaks 
-        \newcommand*\Wrappedbreaksatpunct {% 
-            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
-            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
-            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
-            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
-            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
-            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
-            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
             \catcode`\.\active
-            \catcode`\,\active 
+            \catcode`\,\active
             \catcode`\;\active
             \catcode`\:\active
             \catcode`\?\active
             \catcode`\!\active
-            \catcode`\/\active 
-            \lccode`\~`\~ 	
+            \catcode`\/\active
+            \lccode`\~`\~
         }
     \makeatother
 
@@ -325,10 +326,10 @@
             \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
             {\kern\fontdimen2\font}%
         }%
-        
+
         % Allow breaks at special characters using \PYG... macros.
         \Wrappedbreaksatspecials
-        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
         \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
     }
     \makeatother
@@ -338,7 +339,7 @@
     \definecolor{outcolor}{HTML}{D84315}
     \definecolor{cellborder}{HTML}{CFCFCF}
     \definecolor{cellbackground}{HTML}{F7F7F7}
-    
+
     % prompt
     \makeatletter
     \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
@@ -346,11 +347,11 @@
     \newcommand{\prompt}[4]{
         \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
     }
-    
 
-    
+
+
     % Prevent overflowing lines due to hard-to-break entities
-    \sloppy 
+    \sloppy
     % Setup hyperref package
     \hypersetup{
       breaklinks=true,  % so long urls are correctly broken across lines
@@ -360,20 +361,20 @@
       citecolor=citecolor,
       }
     % Slightly bigger margins than the latex defaults
-    
+
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
-    
-    
+
+
 
 \begin{document}
-    
-    \maketitle
-    
-    
 
-    
+    \maketitle
+
+
+
+
     \hypertarget{introducciuxf3n}{%
-\section{Introducción}\label{introducciuxf3n}}
+\section*{Introducción}\label{introducciuxf3n}}
 
     En un laboratorio se llevó a cabo un experimento bajo distintas
 condiciones para determinar la influencia que el nivel de temperatura y
@@ -405,8 +406,8 @@ considerados junto con una descripción de los parámetros de cada uno.
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Control3_files/Control3_7_0.png}
     \end{center}
-    
-    
+
+
     \hypertarget{temperatura}{%
 \subparagraph{\texorpdfstring{\texttt{Temperatura}}{Temperatura}}\label{temperatura}}
 
@@ -484,29 +485,29 @@ donde
 \item
   \(t_1\) y \(t_2\) son los regresores correspondientes a las variables
   indicadoras asociadas con el nivel de \texttt{Temperatura}, donde \[
-  (t_1,\,t_2) = 
+  (t_1,\,t_2) =
   \begin{cases}
-  (0,\,0) & \text{ si } \textsf{Temperatura} = 30 \text{ ºC} \\
-  (1,\,0) & \text{ si } \textsf{Temperatura} = 60 \text{ ºC} \\
-  (0,\,1) & \text{ si } \textsf{Temperatura} = 90 \text{ ºC} \\
+  (0,\,0) & \text{ si } \texttt{Temperatura} = 30 \text{ ºC} \\
+  (1,\,0) & \text{ si } \texttt{Temperatura} = 60 \text{ ºC} \\
+  (0,\,1) & \text{ si } \texttt{Temperatura} = 90 \text{ ºC} \\
   \end{cases}
   \]
 \item
   \(k\) es el regresor correspondiente a la variable indicadora asociada
   con el tipo de \texttt{Cultivo}, donde \[
-  k = 
+  k =
   \begin{cases}
-  0 & \text{ si } \textsf{Cultivo} = \text{Básico} \\
-  1 & \text{ si } \textsf{Cultivo} = \text{Ácido} \\
+  0 & \text{ si } \texttt{Cultivo} = \text{Básico} \\
+  1 & \text{ si } \texttt{Cultivo} = \text{Ácido} \\
   \end{cases}
   \]
 \item
   \(c\) es el regresor correspondiente a la variable indicadora asociada
   con el nivel de \texttt{Concentración}, donde \[
-  c = 
+  c =
   \begin{cases}
-  0 & \text{ si } \textsf{Concentración} = \text{Baja} \\
-  1 & \text{ si } \textsf{Concentración} = \text{Alta} \\
+  0 & \text{ si } \texttt{Concentración} = \text{Baja} \\
+  1 & \text{ si } \texttt{Concentración} = \text{Alta} \\
   \end{cases}
   \]
 \item
@@ -579,18 +580,15 @@ resultado de las distintas combinaciones de niveles de
 
     El ajuste obtenido para el modelo propuesto está dado por
 
-    
-    \(\hat{y}\) = 94.32 + 8.65\({t}_1\) - 3.0\({t}_2\) + 5.37\({k}\) +
-1.77\({c}\) - 5.7\({t}_1{k}\) - 1.3\({t}_1{c}\) - 1.6\({t}_2{k}\) +
-1.8\({t}_2{c}\) - 0.93\({k}{c}\)
+    $$\hat{y} =  94.32 + 8.65{t}_1 - 3.0{t}_2 + 5.37{k} + 1.77{c} - 5.7{t}_1{k} - 1.3{t}_1{c} - 1.6{t}_2{k} + 1.8{t}_2{c} - 0.93{k}{c}$$
 
-    
+
     Para el ajuste obtenido se calculó un valor de \(R^2\) de 83.99 \% y un
 valor de \(R^2_{\text{ajustada}}\) de 81.11 \%. Esto quiere decir que
 los regresores incluidos en el modelo logran explicar una cantidad
 suficiente de la variabilidad de la respuesta.
 
-    
+
     A continuación se realizan algunas pruebas de hipótesis para análizar
 los efectos de los cambios de \texttt{Temperatura} sobre el
 \texttt{Número\ final\ de\ bacterias}.
@@ -600,30 +598,30 @@ los efectos de los cambios de \texttt{Temperatura} sobre el
 \item
   Para \(H_0\): \(\beta_0\) = 0 vs.~\(H_1\): \(\beta_0\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = 124.55 y un valor \(p\) = 1.11
-  \(\times\) 10 \(^{-16}\), que es lo suficientemente pequeño para
+  \(\times\) 10 \(^{-16}\), que es lo suficientemente pequeño como para
   rechazar \(H_0\).
 \end{itemize}
 
-    
+
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_1\) = 0 vs.~\(H_1\): \(\beta_1\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = 8.51 y un valor \(p\) = 2.69 \(\times\)
-  10 \(^{-11}\), que es lo suficientemente pequeño para rechazar
+  10 \(^{-11}\), que es lo suficientemente pequeño como para rechazar
   \(H_0\).
 \end{itemize}
 
-    
+
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_2\) = 0 vs.~\(H_1\): \(\beta_2\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = -2.95 y un valor \(p\) = 4.78 \(\times\)
-  10 \(^{-3}\), que es lo suficientemente pequeño para rechazar \(H_0\).
+  10 \(^{-3}\), que es lo suficientemente pequeño como para rechazar \(H_0\).
 \end{itemize}
 
-    
+
     De acuerdo con los resultados de las pruebas de hipótesis anteriores, es
 posible afirmar que no hay evidencia de que los coeficientes asociados
 con los cambios de \texttt{Temperatura} sean negligibles y, por lo
@@ -640,13 +638,13 @@ empleado?}\label{es-distinta-la-respuesta-dependiendo-del-cultivo-empleado}}
 \item
   Para \(H_0\): \(\beta_3\) = 0 vs.~\(H_1\): \(\beta_3\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = 5.6 y un valor \(p\) = 9.00 \(\times\)
-  10 \(^{-7}\), que es lo suficientemente pequeño para rechazar \(H_0\).
+  10 \(^{-7}\), que es lo suficientemente pequeño como para rechazar \(H_0\).
 \end{itemize}
 
-    
+
     Como rechazamos la opción que \(\beta_3\) tome el valor de cero, esto
-implica que el tipo de cultivo que se emplea en las muestras sí afecta o
-sí tiene un impacto significativo en el número de bacterias encontradas.
+implica que el tipo de \texttt{Cultivo} que se emplea en las muestras sí afecta o
+sí tiene un impacto significativo en el \texttt{Número\ final\ de\ bacterias}.
 
     \hypertarget{consideraruxeda-que-los-factores-interactuxfaan}{%
 \section{¿Consideraría que los factores
@@ -654,59 +652,58 @@ interactúan?}\label{consideraruxeda-que-los-factores-interactuxfaan}}
 
     A continuación se harán varias pruebas de hipótesis que ayudarán a
 discernir si los distintos factores (\texttt{Temperatura},
-\texttt{Cultivo} y \texttt{Concentración}) interactúan entre ellos en el
-resultado final de número de bacterias.
+\texttt{Cultivo} y \texttt{Concentración}) interactúan entre sí dentro del modelo propuesto para explicar el \texttt{Número\ final\ de\ bacterias}.
 
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_5\) = 0 vs.~\(H_1\): \(\beta_5\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = -4.86 y un valor \(p\) = 1.20 \(\times\)
-  10 \(^{-5}\), que es lo suficientemente pequeño para rechazar \(H_0\).
+  10 \(^{-5}\), que es lo suficientemente pequeño como para rechazar \(H_0\).
 \end{itemize}
 
-    
+
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_6\) = 0 vs.~\(H_1\): \(\beta_6\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = -1.11 y un valor \(p\) = 2.73 \(\times\)
-  10 \(^{-1}\), que es lo suficientemente grande para no rechazar
+  10 \(^{-1}\), que es lo suficientemente grande como para no rechazar
   \(H_0\).
 \end{itemize}
 
-    
+
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_7\) = 0 vs.~\(H_1\): \(\beta_7\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = -1.36 y un valor \(p\) = 1.78 \(\times\)
-  10 \(^{-1}\), que es lo suficientemente grande para no rechazar
+  10 \(^{-1}\), que es lo suficientemente grande como para no rechazar
   \(H_0\).
 \end{itemize}
 
-    
+
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_8\) = 0 vs.~\(H_1\): \(\beta_8\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = 1.53 y un valor \(p\) = 1.31 \(\times\)
-  10 \(^{-1}\), que es lo suficientemente grande para no rechazar
+  10 \(^{-1}\), que es lo suficientemente grande como para no rechazar
   \(H_0\).
 \end{itemize}
 
-    
+
     \begin{itemize}
 \tightlist
 \item
   Para \(H_0\): \(\beta_9\) = 0 vs.~\(H_1\): \(\beta_9\) \(\neq\) 0 se
   obtuvo un estadístico \(t\) = -0.97 y un valor \(p\) = 3.34 \(\times\)
-  10 \(^{-1}\), que es lo suficientemente grande para no rechazar
+  10 \(^{-1}\), que es lo suficientemente grande como para no rechazar
   \(H_0\).
 \end{itemize}
 
-    
-    Como podemos observar, todos los valores p de las pruebas de hipótesis
+
+    Como podemos observar, todos los valores $p$ de las pruebas de hipótesis
 son valores grandes (mayores a 0.05), con excepción del valor de la
 prueba para \(\beta_5\). Sin embargo, como \(\beta_5\) indica la
 interacción entre el cambio de 30ºC a 60ºC de \texttt{Temperatura} y el
@@ -724,9 +721,9 @@ Errores se distribuyen normal con media 0
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Control3_files/Control3_37_0.png}
     \end{center}
-    
-    
-    En la figura 2 vemos que el modelo sí cumple con el supuesto de
+
+
+    En la Figura 2 vemos que el modelo sí cumple con el supuesto de
 homocedasticidad pues la varianza de los residuales es prácticamente
 constante. Al inicio tiene una menor varianza sin embargo después se
 estabiliza y se mantene constante.
@@ -734,8 +731,8 @@ estabiliza y se mantene constante.
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Control3_files/Control3_39_0.png}
     \end{center}
-    
-    
+
+
     En la Figura 3 vemos que, aunque no es idéntica, la distribución de los
 residuales se asemeja bastante a la de una normal. Esto se confirma con
 la gráfica cuantil-cuantil de la Figura 4 ya que, salvo al inicio y al
@@ -745,8 +742,8 @@ con el supuesto de normalidad.
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Control3_files/Control3_41_0.png}
     \end{center}
-    
-    
+
+
     Finalmente con la Figura 5 y la Figura 6 vemos que los residuales no
 presentan ninguna correlación aparente entre ellos y que la correlación
 de orden uno es muy pequeña por lo que también se cumple el supuesto de
@@ -759,8 +756,8 @@ datos.
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Control3_files/Control3_44_0.png}
     \end{center}
-    
-    
+
+
     Finalmente de la Figura 7 vemos que los residuales estandarizados son
 menores que 1.75 y mayores que 0 por lo que podemos concluir que nuestra
 muestra no cuenta con valores atípicos.
@@ -770,10 +767,8 @@ muestra no cuenta con valores atípicos.
 alto de la concentración del
 cultivo?}\label{considera-que-es-necesario-distinguir-entre-los-niveles-bajo-y-alto-de-la-concentraciuxf3n-del-cultivo}}
 
-    Para la prueba de hipótesis \(H_0: \beta_4 = 0\)
-vs.~\(H_1: \beta_4 \neq 0\) se obtuvo un estadístico \(t_4 = 1.84\) y un
-resultante valor \(p = 7.11 × 10^{-2}\), que no es lo suficientemente
-pequeño como para rechazar la hipótesis \(H_0\). Esto significa que el
+    Para \(H_0: \beta_4 = 0\)
+vs.~\(H_1: \beta_4 \neq 0\) se obtuvo un estadístico \(t_4 = 1.84\) y un valor \(p = 7.11 \times 10^{-2}\), que es lo suficientemente grande como para no rechazar la hipótesis \(H_0\). Esto significa que el
 coeficiente \(\beta_4\) no es significativo y por lo tanto no es
 necesario distinguir entre los niveles de concentración ya que no nos
 brinda información extra.
@@ -782,46 +777,67 @@ brinda información extra.
 \section{Concluya el reporte resaltando lo encontrado en su
 análisis.}\label{concluya-el-reporte-resaltando-lo-encontrado-en-su-anuxe1lisis.}}
 
-    
-    \begin{verbatim}
-            df           F      PR(>F)
-t1         1.0  1.6880e+02  1.1941e-17
-t2         1.0  2.4443e+01  9.0172e-06
-k          1.0  2.6526e+01  4.4140e-06
-t1:k       1.0  2.3261e+01  1.3658e-05
-t2:k       1.0  1.8601e+00  1.7872e-01
-t2:c       1.0  1.3965e+01  4.7895e-04
-t1:c       1.0  5.7349e-28  1.0000e+00
-c          1.0  2.4559e+00  1.2339e-01
-k:c        1.0  9.4943e-01  3.3456e-01
-Residual  50.0         NaN         NaN
-    \end{verbatim}
 
-    
-    Realizamos un análisis de varianza para ver cuáles regresores podemos
+%    \begin{verbatim}
+%            df           F      PR(>F)
+%t1         1.0  1.6880e+02  1.1941e-17
+%t2         1.0  2.4443e+01  9.0172e-06
+%k          1.0  2.6526e+01  4.4140e-06
+%t1:k       1.0  2.3261e+01  1.3658e-05
+%t2:k       1.0  1.8601e+00  1.7872e-01
+%t2:c       1.0  1.3965e+01  4.7895e-04
+%t1:c       1.0  5.7349e-28  1.0000e+00
+%c          1.0  2.4559e+00  1.2339e-01
+%k:c        1.0  9.4943e-01  3.3456e-01
+%Residual  50.0         NaN         NaN
+%    \end{verbatim
+\begin{center}
+    Tabla \ref{seq}. Análisis de varianza por medio de suma extra de cuadrados.
+\end{center}
+
+\begin{table}[!htbp]
+\centering
+\caption{Análisis de varianza.}
+\label{seq}
+\begin{tabular}{cccccc}
+\toprule
+Variación &  Suma de cuadrados &  Grados de libertad &  Cuadrados medios &  $F_0$ &                  Valor $p$ \\
+\midrule
+$t_1$      &             580.80 &                   1 &            580.80 & 168.80 &  $1.11 \times 10 ^{-16}$ \\
+$t_2$       &              84.10 &                   1 &             84.10 &  24.44 &   $9.01 \times 10 ^{-6}$ \\
+$k$        &              91.27 &                   1 &             91.27 &  26.53 &   $4.41 \times 10^{-6}$ \\
+$t_1k$  &              80.03 &                   1 &             80.03 &  23.26 &   $1.36 \times 10^{-5}$ \\
+$t_2k$  &               6.40 &                   1 &              6.40 &   1.86 &   $1.78 \times 10^{-1}$ \\
+$t_2c$  &              48.05 &                   1 &             48.05 &  13.97 &   $4.78 \times 10^{-4}$ \\
+$t_1c$  &               0.00 &                   1 &              0.00 &   0.00 &   $9.99 \times 10^{-1}$ \\
+$c$         &               8.45 &                   1 &              8.45 &   2.46 &   $1.23 \times 10^{-1}$ \\
+$kc$    &               3.27 &                   1 &              3.27 &   0.95 &   $3.34 \times 10^{-1}$ \\
+Residuales   &             172.03 &                  50 &              3.44 &        &                            \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    Realizamos un análisis de varianza por medio de las pruebas de suma extra de cuadrados (Ver Tabla \ref{seq}) para ver cuáles regresores podemos
 eliminar de nuestro modelo. Como se observó en las pruebas de hipótesis
-realizaddas en secciones anteriores tanto la \texttt{Temperatura} como
+realizadas en secciones anteriores tanto la \texttt{Temperatura} como
 el tipo de \texttt{Cultivo}, así como su interacción, son variables
-importantes para determinar el \texttt{número\ de\ bacterias} final.
+importantes para determinar el \texttt{Número\ final\ de\ bacterias}.
 
-Además con este análisis observamos que la interacción entre la
-\texttt{Temperatura} y la \texttt{Concentración} también es un regresor
-importante para explicar nuestros datos ya que tiene un valor p de
-\(4.79 \times 10 ^{-4} < 0.05\). Es importante notar que la prueba de
-hipótesis de la pregunta 5 nos indica que si la iteracción entre
-\texttt{Temperatura} y \texttt{Concentración} (\texttt{t2:c}) es el
-último regresor en agregarse al modelo, entonces no es muy
-significativo. Sin embargo, la tabla anterior nos indica que si solo
-tomamos en cuenta la \texttt{Temperatura} y el \texttt{Cultivo} en
-nuestro modelo, agregar el regresor \texttt{t2:c} sí nos ayuda a
+Adicionalmente, con este análisis observamos que el regresor $t_2c$ asociado con la interacción entre la \texttt{Temperatura} y la \texttt{Concentración} también es un regresor
+importante para explicar nuestros datos ya que en la Tabla \ref{seq} tiene un valor $p$ asociado de
+\(4.78 \times 10 ^{-4} < 0.05\). Es importante notar que la prueba de
+hipótesis de la pregunta 4 nos indica que si el regresor $t_2c$ es el
+último regresor en agregarse al modelo, entonces, dados los regresores anteriores, no es muy
+significativo. Sin embargo, la tabla anterior nos indica que si en nuestro modelo solo
+tomamos en cuenta la \texttt{Temperatura}, el \texttt{Cultivo} y las respectivas interacciones entre estos regresores, agregar el regresor $t_2c$ sí nos ayuda a
 explicar de mejor manera nuestros datos. Por el \emph{Principio de
 Herencia} al agregar la interacción entre \texttt{Temperatura} y
 \texttt{Concentración} también debemos de agregar el regresor de
-\texttt{Concentración} a la muestra aunque este no sea tan
+\texttt{Concentración} a la muestra aunque éste no sea tan
 significativo.
 
     Por lo tanto, el modelo seleccionado para explicar el
-\texttt{número\ de\ bacterias} es de la forma:
+\texttt{Número\ final\ de\ bacterias} es de la forma:
 \[y=\beta_0 + \beta_1 t_1 + \beta_2 t_2 + \beta_3 k + \beta_4 c + \beta_5 t_1k + \beta_6 t_2k + \beta_7 t_1c + \beta_8 t_2c + \varepsilon\]
 y el modelo ajustado es:
 \[\hat{y}= 94.55 + 8.65t_1 - 3.00t_2 + 4.90k + 1.30c - 5.70t_1k -1.60t_2k - 1.30t_1c + 1.80t_2c \]
@@ -829,10 +845,9 @@ y el modelo ajustado es:
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Control3_files/Control3_54_0.png}
     \end{center}
-    
-    
-    En la Figura 8 vemos el ajuste final de nuestro modelo el cual tiene un
-buen ajuste ya que las medias observadas sí están dentro de los
+
+
+    En la Figura 8 se encuentran graficados los intervalos de 95 \% de confianza del valor promedio de la respuesta para cada uno de los tratamientos considerados. Vemos que el ajuste asociado con nuestro modelo final es satisfactorio ya que las medias observadas sí están dentro de los
 intervalos de confianza de las predicciones del modelo.
 
 Notamos que las bacterias reaccionan mejor a una temperatura de 60ºC sin
@@ -846,7 +861,7 @@ concentraciones iniciales altas, pero prefieren temperaturas más bajas
 
 
     % Add a bibliography block to the postdoc
-    
-    
-    
+
+
+
 \end{document}
