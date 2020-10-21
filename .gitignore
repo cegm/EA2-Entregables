@@ -2,3 +2,10 @@
 Controles/Control 1/.ipynb_checkpoints/
 Controles/Control 2/__pycache__/
 Controles/Control 2/.ipynb_checkpoints/
+Controles/Control 3/.ipynb_checkpoints/
+**.synctex.gz
+**.log
+**.out
+**.aux
+**.fls
+**.fdb_latexmk
