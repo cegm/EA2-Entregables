@@ -1,0 +1,3 @@
+KND: 158612; 158999; 160502; = 9.7(A)
+Tacos de papa = 9(B)
+AguacatesTristes = 7.5(C)
