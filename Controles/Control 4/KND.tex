@@ -1,0 +1,836 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    %\DeclareCaptionFormat{nocaption}{}
+    %captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Control 4}
+    \author{KND}
+    \date{25 de noviembre de 2020}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+    Los datos analizados en el artículo {[}1{]} se componen de distintas
+variables relacionadas con el avance tecnológico de varios vehículos
+híbridos eléctricos. En este documento se utiliza el mismo conjunto de
+datos para construir, ajustar y validar un modelo de regresión lineal
+múltiple que explique el precio de los vehículos en términos de
+variables como la tasa de aceleración y el consumo de combustible entre
+otras. El ajuste obtenido es utilizado posteriormente para la predicción
+del precio de los vehículos de otro conjunto de datos.
+
+    \hypertarget{resumen-del-artuxedculo}{%
+\section{Resumen del artículo}\label{resumen-del-artuxedculo}}
+
+    En el artículo {[}1{]} se realiza un pronóstico de tecnología por medio
+de análisis por envolvente de datos (TFDEA por sus siglas en inglés)
+cuyo objetivo es medir y comparar el avance tecnológico ocurrido entre
+2004 y 2013 en distintos sectores del mercado de vehículos híbridos
+eléctricos.
+
+Los autores del artículo consideran como variable de entrada el precio
+sugerido por el fabricante de los vehículos. Como variables de salida
+consideran la tasa de aceleración, el consumo de combustible y el máximo
+de consumo de combustible o equivalente. También se incluye una variable
+categórica que divide a los vehículos en siete grupos diferentes.
+
+De acuerdo con los resultados obtenidos en el artículo, los sectores
+correspondientes a los vehículos de tamaño medio fueron los que tuvieron
+mayores avances tecnológicos durante el periodo estudiado. Las mejoras
+en el desempeño y la diversificación de estos últimos puede representar
+una amenaza para los vehículos de tamaño pequeño. Mientras que los
+vehículos utilitarios deportivos (SUV) se enfocan en un nicho de mercado
+lujoso, los vehículos especializados para el transporte de mercancías
+compiten contra sus equivalentes de gasolina para probar la utilidad de
+los vehículos híbridos.
+
+    \hypertarget{descripciuxf3n-de-las-variables-del-conjunto-de-datos-y-anuxe1lisis-exploratorio}{%
+\section{Descripción de las variables del conjunto de datos y análisis
+exploratorio}\label{descripciuxf3n-de-las-variables-del-conjunto-de-datos-y-anuxe1lisis-exploratorio}}
+
+    El conjunto de datos cuenta con las siguientes variables
+
+\textbf{Variable respuesta}
+
+La variable de respuesta que se busca es el precio sugerido del vehículo
+(\texttt{msrp} por sus siglas en inglés), que toma valores decimales y
+que en los datos originales está expresada en dólares equivalentes a
+2013. Los valores mínimo y máximo que se tienen son 11849.43 y 118543.6
+respectivamente. Para expresar esta variable en miles de dólares, lo que
+hacemos es dividir esa columna entre 1000.
+
+\textbf{Potenciales regresores}
+
+\begin{itemize}
+\item
+  tasa de aceleración (\texttt{accelrate}): Esta variable numérica
+  indica el tiempo en segundos que le toma a cada vehículo llegar de 0
+  km/h a 100 km/h.
+\item
+  consumo de combustible (\texttt{mpg}): También conocida como economía
+  de combustible, esta variable numéroca indica la distancia que un
+  vehículo puede recorrer por unidad de combustible. En la fuente
+  original de los datos se encuentra en millas por galón. En este
+  documento se convirtió a kilómetros por litro multiplicando por
+  2.8248.
+\item
+  máximo de consumo de combustible o equivalente (\texttt{mpgmpge}): La
+  Agencia de Protección Ambiental de Estados Unidos desarrolló un
+  consumo de combustible equivalente para los vehículos híbridos
+  eléctricos. Esta variable indica el máximo entre el consumo de
+  combustible tradicional y el equivalente. También se convirtió a
+  kilómetros por litro.
+\item
+  modelo (\texttt{vehicle}): Es una variable categórica que indica el
+  modelo del y que toma 109 valores diferentes.
+\item
+  clase del vehículo (\texttt{carclass}): Es la categoría a la cual
+  pertenece cada vehículo (detalle más adelante).
+\end{itemize}
+
+A pesar de las transformaciones realizadas se decidió mantener el nombre
+original de las variables. Además los datos cuentan con otras variables:
+\texttt{carid}, \texttt{year} y \texttt{carclass\_id} que son variables
+que no aportan mucho al análisis de los datos ya que son para el manejo
+interno de los datos o fungen como etiquetas.
+
+    La base de datos se compone de 140 observaciones de diferentes coches y
+no tenemos datos faltantes ni repetidos. Existen 109 modelos de coches
+distintos y 7 clases.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_12_0.png}
+    \end{center}
+    
+    
+    De la Figura 1 vemos que hay más carros de tamaño medio, seguido por las
+SUV y los autos compactos, por lo que la mayoría de los datos de la base
+son coches familiares donde caben más de 3 personas. Creamos una nueva
+variable para las clases de coche que agrupa los coches similares en una
+clase. Los nuevos grupos están dados por:
+
+\begin{itemize}
+\item
+  Carros grandes: Large y Pickup Truck (\texttt{Large})
+\item
+  Camionetas: SUV y Minivan (\texttt{Vans})
+\item
+  Carros pequeños: Compact y Two-seaters (\texttt{Small})
+\item
+  Carros medianos: Midsize (\texttt{Medium})
+\end{itemize}
+
+En lo subsecuente, la variable \texttt{carclass} se refiere a esta nueva
+asignación de categorías.
+
+    De igual manera se creó una nueva variable para el modelo de coche que
+agrupa los modelos por marca, por ejemplo: \emph{Prius},
+\emph{Highlander} y \emph{Camry} son de la marca \emph{Toyota}. De esta
+manera, la nueva variable \texttt{manufacturer} se redujo a 25 clases en
+lugar de las 103 de la variable \texttt{vehicle}. En la Figura 2 vemos
+que \emph{Toyota}, \emph{Honda}, \emph{Lexus}, \emph{Chevrolet} y
+\emph{Ford} son las marcas con más observaciones.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_18_0.png}
+    \end{center}
+    
+    
+    Para la mayoría de las observaciones el consumo de combustible es igual
+al máximo entre el \texttt{mpg} y la medición alternativa del consumo de
+combustible. Sin embargo, hay 11 observaciones en las que la medición
+alternativa es más del doble de \texttt{mpg} (Figura 3).
+
+    A continuación evaluaremos la relación lineal entre los regresores y la
+variable respuesta.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_21_0.png}
+    \end{center}
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_22_0.png}
+    \end{center}
+    
+    
+    La tasa de aceleración es la única que presenta una correlación lineal
+clara con el precio (Figura 4). Tanto para el consumo de combustible
+como para el máximo de consumo de combustible o equivalente, la relación
+con la variable objetivo es no-lineal (Figuras 5 y 6). También podemos
+ver que las variables \texttt{mpg} y \texttt{mpgmpge} tienen un
+comportamiento similar, lo cual tiene sentido ya que solo difieren en 11
+observaciones.
+
+Esto se puede confirmar en la Figura 7 ya que \texttt{accelrate} tiene
+una correlación de \(0.7\) con la variable objetivo, mientras que para
+\texttt{mpg} y \texttt{mpgmpge}, además de que las correlaciones son
+negativas, estas no son muy grandes en magnitud.
+
+    \hypertarget{modelo-de-regresiuxf3n-lineal-muxfaltiple}{%
+\section{Modelo de regresión lineal
+múltiple}\label{modelo-de-regresiuxf3n-lineal-muxfaltiple}}
+
+    \hypertarget{modelo-inicial}{%
+\subsection{Modelo inicial}\label{modelo-inicial}}
+
+    En primer lugar, se ajustó un modelo de regresión lineal tomando como
+respuesta a la variable \texttt{msrp} y como regresores a las variables
+numéricas \texttt{accelrate}, \texttt{mpg} y \texttt{mpgmpge} y a los
+factores \texttt{carclass}, \texttt{manufacturer}.
+
+    Vemos que \texttt{mpg} no es significativo pues tiene un valor-p
+\(0.081 > 0.05\)
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_29_0.png}
+    \end{center}
+    
+    
+    En la Figura 8 se encuentran graficados los residuales contra las
+respuestas ajustadas del obtenidas a partir del modelo inicial. La
+gráfica sugiere una desviación notable del supuesto de varianza
+constante de los términos aleatorios de error.
+
+    \hypertarget{transformaciuxf3n-de-variables}{%
+\subsection{Transformación de
+variables}\label{transformaciuxf3n-de-variables}}
+
+    Con el objetivo de mitigar las desviaciones de los supuestos del modelo
+de regresión lineal se utilizó la transformación de Box-Cox en la
+variable respuesta. Para obtener un valor de \(\lambda\) óptimo se
+consideraron varios valores de prueba. Con cada uno de ellos se obtuvo
+un ajuste y se seleccionó el valor de \(\lambda\) que minimizara la suma
+de cuadrados de los residuales de cada uno de los ajustes. En la Tabla 1
+se muestra que el valor óptimo resultó ser \(\lambda = 0\), lo cual
+sugiere que la varianza de los términos de error podría estabilizarse al
+aplicar una transformación logarítmica a la variable respuesta.
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{rrl}
+        \toprule
+        $\lambda$ &  $SC_{Res}(\lambda)$ & Clasificación \\
+        \midrule
+        -1.00 &             10269.7716 &               \\
+        -0.75 &              8874.2238 &               \\
+        -0.50 &              7989.9042 &               \\
+        -0.25 &              7546.4395 &               \\
+        \textbf{0.00} &     \textbf{7525.9739} &        \textbf{Óptimo}\\
+        0.25 &              7963.9670 &               \\
+        0.50 &              8959.1730 &               \\
+        0.75 &             10695.3245 &               \\
+        1.00 &             13479.5726 &               \\
+        \bottomrule
+    \end{tabular}
+    \caption*{Tabla 1. Valores de prueba de $\lambda$ para la transformación de Box-Cox}
+\end{table}
+    
+    
+    Para la selección del modelo final se utilizó un procedimiento
+computacional que consiste en evaluar todas las posibles regresiones.
+Los parámetros de evaluación fueron el Criterio de Información de Akaike
+(AIC) y la \(C_p\) de Mallows y el valor \(p\) asociado con el
+estadístico \(F\) de la significancia de la regresión.
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        model &  num\_regresors &      AIC &  Mallows Cp &   f\_pvalue \\
+        \midrule
+        mpg &              2 &  156.077 &         2.0 &  $2.31\times10^{-11}$ \\
+        mpgmpge &              2 &  185.046 &         2.0 &  $5.61\times10^{-5}$ \\
+        carclass &              4 &  164.835 &         4.0 &  $1.23\times10^{-8}$\\
+        accelrate &              2 &  109.445 &         2.0 &  $1.85\times10^{-21}$ \\
+        manufacturer &             25 &   59.143 &        25.0 &  $1.59\times10^{-23}$\\
+        mpg+carclass &              5 &  152.226 &         5.0 &  $5.94\times10^{-11}$ \\
+        mpg+accelrate &              3 &  100.821 &         3.0 &  $1.47\times10^{-22}$\\
+        mpg+manufacturer &             26 &   53.568 &        26.0 & $3.36\times10^{-24}$ \\
+        carclass+accelrate &              5 &   94.008 &         5.0 &  $6.40\times10^{-23}$\\
+        carclass+manufacturer &             28 &   50.344 &        28.0 &  $3.20\times10^{-24}$\\
+        accelrate+manufacturer &             26 &   32.315 &        26.0 &  $9.74\times10^{-28}$\\
+        mpg+mpgmpge+manufacturer &             27 &   48.724 &        27.0 &  $9.66\times10^{-25}$\\
+        mpgmpge+carclass+manufacturer &             29 &   46.563 &        29.0 &  $1.41\times10^{-24}$\\
+        carclass+accelrate+manufacturer &             29 &   28.718 &        29.0 &  $1.84\times10^{-27}$\\
+        mpg+mpgmpge+carclass+manufacturer &             30 &   38.505 &        30.0 &  $1.33\times10^{-25}$\\
+        mpg+mpgmpge+accelrate+manufacturer &             28 &   29.926 &        28.0 &  $1.49\times10^{-27}$\\
+        mpgmpge+carclass+accelrate+manufacturer &             30 &   \textbf{21.086} &        30.0 &  $2.11\times10^{-28}$\\
+        \bottomrule
+        \end{tabular}
+        \caption*{Tabla 2. Estadísticos relevantes para la selección del modelo final}
+\end{table}
+
+    
+    En la Tabla 2 se muestra que el modelo que simultáneamente minimiza el
+valor del AIC y el valor \(p\) asociado con el estadístico \(F\) de la
+prueba de la significancia de la regresión es el que se muestra en la
+última fila de la tabla, es decir, aquel que considera a
+\texttt{mpgmpge}, \texttt{carclass}, \texttt{accelrate} y
+\texttt{manufacturer}como regresores. En todos los casos la \(C_p\) de
+Mallows es igual a la cantidad de regresores empleados. La cantidad de
+30 regresores corresponde a (25 - 1) variables indicadoras asociadas con
+el factor \texttt{manufacturer}, (4 - 1) variables indicadoras asociadas
+con el factor \texttt{carclass}, 2 variables numéricas y 1 regresor
+asociado con el coeficiente \(\beta_0\)
+
+    \hypertarget{detecciuxf3n-de-valores-atuxedpicos}{%
+\subsection{Detección de valores
+atípicos}\label{detecciuxf3n-de-valores-atuxedpicos}}
+
+    Para la detección de valores atípicos se calcularon los residuales
+estandarizados (\(\hat{r}_i\)) y las distancias de Cook (\(d_i\)). Con
+base en el criterio \(|\hat{r}_i| > 3\) se detectaron dos valores
+atípicos: El vehículo cuyo modelo es \texttt{Crown} y el vehículo cuyo
+modelo es \texttt{Lexus\ LS600h/hL}. Esta situación se encuentra
+ilustrada en la Figura 9. No se detectaron valore de influencia con el
+criterio \(d_i > 1\).
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_45_0.png}
+    \end{center}
+    
+    
+    \begin{table}[!hb]
+        \centering
+        \begin{tabular}{rrrlrll}
+            \toprule
+            msrp &      mpg &  mpgmpge & carclass &  accelrate & manufacturer &          vehicle \\
+            \midrule
+            2.4723 &  14.9991 &  14.9991 &   Medium &       7.87 &         Audi &           A5 BSG \\
+            2.6801 &  13.2985 &  13.2985 &   Medium &       7.14 &      Besturn &    Besturn B50   \\
+            3.0134 &  19.5566 &  19.5566 &   Medium &       9.90 &       Toyota &            Prius \\
+            3.1409 &  12.8181 &  36.1372 &   Medium &       9.24 &          BYD &        F3DM PHEV \\
+            3.1673 &  12.8011 &  36.1372 &   Medium &       9.52 &          BYD &             F3DM \\
+            3.1864 &  21.2572 &  21.2572 &   Medium &      10.20 &       Toyota &            Prius \\
+            3.2096 &  12.3292 &  12.3292 &   Medium &       9.09 &    Chevrolet &           Malibu \\
+            3.2790 &  15.3052 &  15.3052 &   Medium &      10.54 &          Kia &        Optima K5 \\
+            3.3059 &  14.0000 &  14.0000 &   Medium &       9.51 &       Toyota &          Prius V \\
+            3.4206 &  31.0015 &  31.0015 &   Medium &      10.00 &       Toyota &  Prius alpha (V) \\
+            3.4657 &  21.2572 &  40.3887 &   Medium &       9.17 &       Toyota &    Prius Plug-in \\
+            3.4687 &  21.2572 &  40.3887 &   Medium &       8.82 &       Toyota &        Prius PHV \\
+            \textbf{4.1318} &  \textbf{15.7984} &  \textbf{15.7984} &   \textbf{Medium} &       \textbf{8.70} &       \textbf{Toyota} &            \textbf{Crown} \\
+            \bottomrule
+        \end{tabular}
+        \caption*{Tabla 3. Vehículos con \texttt{accelrate} entre 6.70 y 10.70 y con \texttt{carcalss} == "Medium"}
+    \end{table}
+
+    
+    En la Tabla 3 se muestra que el vehículo \texttt{Crown} es el único de
+la clase \texttt{Medium} cuyo \texttt{accelrate} se encuentra entre 6.70
+y 10.70 que tiene un precio en miles de dólares de 2013 \texttt{msrp}
+mayor a 40.
+
+Además de que una situación similar se presenta para el caso del
+vehículo \texttt{Lexus\ LS600h/hL}, sucede que este es el vehículo más
+caro de todo el conjunto de datos con un \texttt{msrp} de 118.5436 miles
+de dólares de 2013.
+
+Se ha decidido conservar estas observaciones debido a que no hay
+evidencia suficiente para concluir que la atipicidad de sus valores
+pueda ser atribuida a errores incurridos durante la recolección de los
+datos.
+
+    \hypertarget{validaciuxf3n-del-modelo}{%
+\subsubsection{Validación del modelo}\label{validaciuxf3n-del-modelo}}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_49_0.png}
+    \end{center}
+    
+    
+    En la Figura 10 se encuentran graficados los residuales contra las
+respuestas ajustadas obtenidas a partir del modelo final seleccionado.
+En comparación con la Figura 8, el problema de heteroscedasticidad fue
+ligeramente mitigado.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_51_0.png}
+    \end{center}
+    
+    
+    En la Figura 11 se encuentra un histograma de los resiudales que sugiere
+que, salvo por algunas observaciones, el supuesto de normalidad no está
+siendo del todo violado. Esto se evidencia con mayor claridad en la
+Figura 12, que es una gráfica cuantil-cuantil de los residuales contra
+la escala normal. Salvo por los valores influyentes mencionados
+previamente, la desviación del supuesto de normalidad no es muy grave.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_53_0.png}
+    \end{center}
+    
+    
+    Finalmente con la Figura 13 y la Figura 14 vemos que los residuales no
+presentan ninguna correlación aparente entre ellos y que la correlación
+de orden uno es muy pequeña por lo que también se cumple el supuesto de
+independencia.
+
+    \hypertarget{predicciuxf3n-del-precio-de-nuevos-vehuxedculos}{%
+\section{Predicción del precio de nuevos
+vehículos}\label{predicciuxf3n-del-precio-de-nuevos-vehuxedculos}}
+
+    Recordemos que nuestro modelo está dado por:
+
+    \begin{equation}
+    y = 2.5233 + \begin{pmatrix}
+       -0.2331 \\
+       -0.2592 \\ 
+       0.0038
+    \end{pmatrix}' \begin{pmatrix}
+       Medium \\
+       Small \\ 
+       Vans
+    \end{pmatrix} + \begin{pmatrix}
+        0.7806 \\
+       -0.0849 \\ 
+       -0.1878 \\
+        0.2666 \\
+        1.0763 \\
+        0.3199 \\
+        0.3493 \\
+        0.0759 \\
+        0.5968 \\
+       -0.0630 \\
+        0.0789 \\
+        0.3755 \\
+       -0.6023 \\
+        0.1295 \\
+        0.5186 \\
+        0.3632 \\
+       -0.1374 \\
+        0.8580 \\
+        0.2471 \\
+       -0.1051 \\
+        0.5763 \\
+        0.6483 \\
+        0.2047 \\
+        0.3373
+    \end{pmatrix}' \begin{pmatrix}
+       BMW \\
+       BYD \\
+       Besturn \\
+       Buick \\
+       Cadillac \\
+       Chevrolet \\
+       Dodge \\
+       Ford \\
+       GMC \\
+       Honda \\
+       Hyundai \\
+       Infiniti \\
+       Jeep \\
+       Kia \\
+       Lexus \\
+       Lincoln \\
+       Mazda \\
+       Mercedes-Benz \\
+       Nissan \\
+       Opel \\
+       Peugeot \\
+       Porsche \\
+       Toyota \\
+       Volkswagen
+    \end{pmatrix} + 0.0102*mpgmpge + 0.0620*accelrate
+\end{equation}
+
+    Para poder predecir los nuevos datos que tenemos, primero se tienen que
+hacer las mismas modificaciones que se hicieron con los datos de
+entrenamiento. Es decir, dividir el \texttt{msrp} entre 1000, expresar
+las columnas \texttt{mpg} y \texttt{mpgmpge} en términos de kilómetros
+por litro y clasificar las clases y las marcas de los vehículos como se
+hizo previamente. Una vez realizados estos cambios, procedemos a hacer
+la predicción y a analizar los resultados obtenidos.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{KND_files/KND_65_0.png}
+    \end{center}
+    
+    
+    En la Figura 15 se pueden observar los resultados obtenidos con el
+modelo. En la mayoría de los casos se obtuvo una buena predicción ya que
+los datos observados están dentro del intervalo de confianza de las
+predicciones del modelo. Finamlente se calculó la \(R^2_{prediccion}\)
+mediante la fórmula \(R^2_{prediccion} = 1 - \frac{PRESS}{SS_T}\) y se
+obtuvo un valor de 0.9078. Lo que afirma que es una buena predicción de
+los datos nuevos.
+
+    \hypertarget{referencias}{%
+\section{Referencias}\label{referencias}}
+
+    {[}1{]} Lim, D., Jahromi, S., Anderson, T. and Tudorie, A., 2015.
+\emph{Comparing technological advancement of hybrid electric vehicles
+(HEV) in different market segments}. Technological Forecasting and
+Social Change, 97, pp.140-153.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
